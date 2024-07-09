@@ -1,6 +1,7 @@
 import express from 'express';
+import { get } from 'lodash';
 
-import { createUser, getUserAuthenticationByEmail, getUserByEmail, partialUpdateSessionTokenOfAuthentication } from '../db/users';
+import { createUser, getUserAuthenticationByEmail, getUserByEmail, getUserById, partialUpdateSessionTokenOfAuthentication } from '../db/users';
 import { authentication, random } from '../helpers';
 
 export const login = async (req: express.Request, res: express.Response) => {
@@ -27,7 +28,7 @@ export const login = async (req: express.Request, res: express.Response) => {
         user.session_token = authentication(salt, user.id.toString());
         partialUpdateSessionTokenOfAuthentication(user.id, user.session_token);
         
-        res.cookie('PERN-TODO-AUTH', user.session_token, { domain: 'localhost', path: '/' });
+        res.cookie('PERN-TODO-AUTH', user.session_token);
 
         return res.status(200).json(user).end();
     } catch (error) {
@@ -59,6 +60,27 @@ export const register = async (req: express.Request, res: express.Response) => {
         })
 
         return res.status(201).json(user).end();
+    } catch (error) {
+        console.log(error);
+        return res.sendStatus(400);
+    }
+}
+
+export const verifyUser = async (req: express.Request, res: express.Response) => {
+    try {
+        const currentUserId = get(req, 'identity.id');
+        
+        if (!currentUserId) {
+            return res.sendStatus(403);
+        }
+
+        const existingUser = await getUserById(currentUserId);
+
+        if (!existingUser) {
+            return res.sendStatus(403);
+        }
+
+        return res.status(200).json(existingUser).end();
     } catch (error) {
         console.log(error);
         return res.sendStatus(400);
