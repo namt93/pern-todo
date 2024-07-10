@@ -1,4 +1,8 @@
 import React, { Fragment, useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faPen
+} from '@fortawesome/free-solid-svg-icons';
 
 type Todo = {
     todo_id: number;
@@ -35,36 +39,46 @@ const EditTodo: React.FC<TodoProps> = ({ todo }) => {
 
     return ( 
         <Fragment>
-            <button 
+            {/* <button 
                 type="button" 
-                className="btn btn-warning" 
-                data-toggle="modal" 
-                data-target={`#id${todo.todo_id}`}
+                className="" 
+                data-bs-toggle="modal" 
+                data-bs-target={`#id${todo.todo_id}`}
+                title="Edit"
+                style={{backgroundColor: "transparent", cursor: "pointer"}}
             >
-            Edit
-            </button>
+                <FontAwesomeIcon icon={faPen} />
+            </button> */}
+            <span 
+            data-bs-toggle="modal"
+            data-bs-target={`#id${todo.todo_id}`}
+            title="Edit"
+            style={{cursor: "pointer", color: "#0dcaf0"}}
+            >
+                <FontAwesomeIcon icon={faPen} />
+            </span>
 
             <div className="modal" id={`id${todo.todo_id}`}>
-            <div className="modal-dialog">
-                <div className="modal-content">
-                    <form onSubmit={updateDescription}>
-                        <div className="modal-header">
-                            <h4 className="modal-title">Edit Todo</h4>
-                            <button type="button" className="close" data-dismiss="modal">&times;</button>
-                        </div>
+                <div className="modal-dialog">
+                    <div className="modal-content bg-dark">
+                        <form onSubmit={updateDescription}>
+                            <div className="modal-header">
+                                <h4 className="modal-title">Edit Todo</h4>
+                                <button type="button" className="close bg-dark border-0 text-white" data-bs-dismiss="modal">&times;</button>
+                            </div>
 
-                        <div className="modal-body">
-                            <input type="text" className="form-control" value={description} 
-                            onChange={e => setDescription(e.target.value)}/>
-                        </div>
+                            <div className="modal-body">
+                                <input type="text" className="form-control bg-secondary border-0 text-white" value={description} 
+                                onChange={e => setDescription(e.target.value)}/>
+                            </div>
 
-                        <div className="modal-footer">
-                            <button type="submit" className="btn btn-warning">Edit</button>
-                            <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
-                        </div>
-                    </form>
+                            <div className="modal-footer">
+                                <button type="submit" className="btn btn-info text-white">Edit</button>
+                                <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
             </div>
         </Fragment>
     );

@@ -47,22 +47,22 @@ const Login: React.FC = () => {
 
     return (
         <div className="d-flex justify-content-center align-items-center vh-100">
-            <div className="bg-secondary p-3 rounded w-25">
+            <div className="bg-dark bg-opacity-75 text-white p-3 rounded w-25">
                 <h2>Signin</h2>
                 <form onSubmit={handleSubmitForm}>
                     <div className="mb-3">
                         <label htmlFor="email"><strong>Email</strong></label>
                         <input type="email" name="email" placeholder="Enter email"
-                            className="form-control rounded-0" value={email} onChange={handleInputChange} required />
+                            className="form-control rounded" value={email} onChange={handleInputChange} required />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="password"><strong>Password</strong></label>
                         <input type="password" name="password" placeholder="Enter password"
-                            className="form-control rounded-0" value={password} onChange={handleInputChange} required />
+                            className="form-control rounded" value={password} onChange={handleInputChange} required />
                     </div>
-                    <button type="submit" className="btn btn-success w-100 rounded-0">Log in</button>
+                    <button type="submit" className="btn btn-info text-white w-100 rounded">Log in</button>
                     <p>You are agree to our terms and policies</p>
-                    <Link to="/register" className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none" role="button">Register</Link>
+                    <Link to="/register" className="btn btn-default border w-100 bg-light rounded text-decoration-none" role="button">Register</Link>
                 </form>
             </div>
         </div>

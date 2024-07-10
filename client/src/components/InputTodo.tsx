@@ -44,15 +44,16 @@ const InputTodo: React.FC<InputTodoProps> = ({ initialDescription = "" }) => {
 
     return (
         <Fragment>
-            <h1 className="text-center mt-5">Pern Todo</h1>
-            <form className="d-flex mt-5" onSubmit={handleSubmitForm}>
+            <h2 className="text-center pt-2">Pern Todo</h2>
+            <form className="d-flex mt-5 mx-5" onSubmit={handleSubmitForm}>
                 <input
                     type="text" 
-                    className="form-control" 
+                    className="form-control mx-1"
+                    placeholder="Enter task"
                     value={description}
                     onChange={updateDescription}
                 />
-                <button className="btn btn-success">Add</button>
+                <button className="btn btn-info text-white mx-1">Add</button>
             </form>
         </Fragment>
     )

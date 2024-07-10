@@ -28,8 +28,10 @@ const Home: React.FC = () => {
 
     return (
         <Fragment>
-        <InputTodo />
-        <ListTodos />
+            <div className="bg-dark text-white h-100 w-50 pt-5 m-auto">
+                <InputTodo />
+                <ListTodos />
+            </div>
         </Fragment>
     );
 }

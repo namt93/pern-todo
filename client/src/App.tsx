@@ -8,7 +8,7 @@ import Register from './pages/Register';
 function App() {
   return (
     <Router>
-      <div className='App'>
+      <div className='App bg-dark' style={{height: "1000px"}}>
         <div className="container">
           <Routes>
             <Route path='/' element={<Home />} />

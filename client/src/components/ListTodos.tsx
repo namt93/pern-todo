@@ -1,7 +1,10 @@
 import EditTodo from './EditTodo';
 
 import React, { Fragment, useEffect, useState } from "react";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faTrashCan
+} from '@fortawesome/free-solid-svg-icons';
 
 type Todo = {
     todo_id: number;
@@ -47,38 +50,56 @@ const ListTodos: React.FC = () => {
 
     return ( 
         <Fragment>
-            <table className="table mt-5 text-center">
-                <thead>
-                    <tr>
-                        <th>Description</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {/* 
-                    <tr>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>john@example.com</td>
-                    </tr>
-                    */}
-                    {todos.map(todo => (
-                        <tr key={todo.todo_id}>
-                            <td>{ todo.description }</td>
-                            <td><EditTodo todo={todo} /></td>
-                            <td>
-                                <button 
-                                    className="btn btn-danger" 
-                                    onClick={() => deleteTodo(todo.todo_id)}
-                                >
-                                    Delete
-                                </button>
-                            </td>
+            <div className='container mt-5'>
+                {/* <table className="table table-dark table-striped mt-5 text-center">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Action</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {todos.map(todo => (
+                            <tr key={todo.todo_id}>
+                                <td>{ todo.description }</td>
+                                <td>
+                                    <EditTodo todo={todo} />
+                                    <button 
+                                        className="btn btn-danger mx-1" 
+                                        onClick={() => deleteTodo(todo.todo_id)}
+                                    >
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table> */}
+                {/* <td><EditTodo todo={todo} /></td> */}
+                {/* 
+                        <tr>
+                            <td>John</td>
+                            <td>Doe</td>
+                            <td>john@example.com</td>
+                        </tr>
+                        */}
+                {todos.map(todo => (
+                    <div className='row bg-secondary rounded-2 my-2 mx-2 p-2' key={todo.todo_id}>
+                        <div className='col-9'>{todo.description}</div>
+                        <div className='btn-action col-3 text-end'>
+                            <EditTodo todo={todo} />
+                            <span 
+                                className='mx-3' 
+                                title='Delete' 
+                                style={{cursor: "pointer", color: "#0dcaf0"}}
+                                onClick={() => deleteTodo(todo.todo_id)}
+                            >
+                                <FontAwesomeIcon icon={faTrashCan} />
+                            </span>
+                        </div>
+                    </div>
+                ))}
+            </div>
         </Fragment>
     );
 }
