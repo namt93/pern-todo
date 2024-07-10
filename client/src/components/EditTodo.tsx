@@ -64,7 +64,14 @@ const EditTodo: React.FC<TodoProps> = ({ todo }) => {
                         <form onSubmit={updateDescription}>
                             <div className="modal-header">
                                 <h4 className="modal-title">Edit Todo</h4>
-                                <button type="button" className="close bg-dark border-0 text-white" data-bs-dismiss="modal">&times;</button>
+                                <button 
+                                    type="button" 
+                                    className="close bg-dark border-0 text-white" 
+                                    data-bs-dismiss="modal"
+                                    onClick={() => setDescription(todo.description)}
+                                >
+                                    &times;
+                                </button>
                             </div>
 
                             <div className="modal-body">
@@ -74,7 +81,14 @@ const EditTodo: React.FC<TodoProps> = ({ todo }) => {
 
                             <div className="modal-footer">
                                 <button type="submit" className="btn btn-info text-white">Edit</button>
-                                <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                <button 
+                                    type="button" 
+                                    className="btn btn-danger" 
+                                    data-bs-dismiss="modal"
+                                    onClick={() => setDescription(todo.description)}
+                                >
+                                    Close
+                                </button>
                             </div>
                         </form>
                     </div>
