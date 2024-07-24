@@ -9,7 +9,7 @@ const Home: React.FC = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('http://localhost:5000/auth/verify-user', {
+        fetch('http://localhost:5000/v1.1/auth/verify-user', {
             method: "GET",
             credentials: 'include',
         })
