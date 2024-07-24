@@ -10,7 +10,7 @@ import {
     registerORM, 
     verifyUserORM
 } from '../controllers/orm/authenticationController';
-import { isAuthenticated } from '../middlewares';
+import { isAuthenticated, isAuthenticatedORM } from '../middlewares';
 
 export default (router: express.Router) => {
     router.post('/auth/register', register);
@@ -19,5 +19,5 @@ export default (router: express.Router) => {
 
     router.post('/v1.1/auth/register', registerORM);
     router.post('/v1.1/auth/login', loginORM);
-    router.get('/v1.1/auth/verify-user', isAuthenticated, verifyUserORM);
+    router.get('/v1.1/auth/verify-user', isAuthenticatedORM, verifyUserORM);
 }
