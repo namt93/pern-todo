@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faPen
 } from '@fortawesome/free-solid-svg-icons';
+import { useUpdateTodo } from "../hooks/useTodoMutation";
 
 type Todo = {
     todo_id: number;
@@ -22,19 +23,14 @@ type TodoProps = {
 
 const EditTodo: React.FC<TodoProps> = ({ todo }) => {
     const [description, setDescription] = useState(todo.description);
-    
+    const updateTodoMutation = useUpdateTodo();
+
     const updateDescription = async (e: React.FormEvent) => {
         try {
             e.preventDefault();
 
-            const body = { description };
-
-            const response = await fetch(`http://localhost:5000/v1.1/todos/${todo.id}`, {
-                method: "PATCH",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(body),
-                credentials: "include",
-            });
+            const data = { id: todo.id, description };
+            updateTodoMutation.mutate(data);
 
             window.location.href = "/";
         } catch (error) {
@@ -54,7 +50,9 @@ const EditTodo: React.FC<TodoProps> = ({ todo }) => {
                 <FontAwesomeIcon icon={faPen} />
             </span>
 
-            <div className="modal" id={`id${todo.id}`}>
+            <div className="modal"
+                id={`id${todo.id}`}
+            >
                 <div className="modal-dialog">
                     <div className="modal-content bg-dark">
                         <form onSubmit={updateDescription}>

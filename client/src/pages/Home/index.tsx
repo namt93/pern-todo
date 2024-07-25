@@ -1,3 +1,4 @@
+import axios from 'axios';
 import InputTodo from '../../components/InputTodo';
 import ListTodos from '../../components/ListTodos';
 
@@ -9,21 +10,24 @@ const Home: React.FC = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('http://localhost:5000/v1.1/auth/verify-user', {
-            method: "GET",
-            credentials: 'include',
-        })
-        .then(response => {
-            if (!response.ok) {
-                navigate('/login');
-                return;
+        axios.create({
+            baseURL: 'http://localhost:5000',
+            headers: {
+                'Content-Type': 'application/json',
             }
-            return response.json();
+        })
+        .get('/v1.1/auth/verify-user', { withCredentials: true })
+        .then(response => {
+            if (response.statusText !== 'OK') {
+                navigate('/login');
+                return
+            }
+            return response.data;
         })
         .catch(error => {
             console.log(error);
             navigate('/login');
-        });
+        })
     }, []);
 
     return (

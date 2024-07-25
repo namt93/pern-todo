@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios, { AxiosResponse, AxiosError } from 'axios';
 
 const Login: React.FC = () => {
     const [email, setEmail] = useState<string>('');
@@ -23,22 +24,22 @@ const Login: React.FC = () => {
         try {
             const body = { email, password };
 
-            fetch("http://localhost:5000/v1.1/auth/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(body),
-                credentials: 'include',
+            axios.create({
+                baseURL: 'http://localhost:5000',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             })
-            .then(response => {
-                if (response.ok) {
+            .post('/v1.1/auth/login', body, { withCredentials: true })
+            .then((response: AxiosResponse) => {
+                if (response.statusText === 'OK') {
                     navigate('/');
                     return;
                 }
-                throw new Error('Network response was not ok');
             })
-            .catch(error => {
-                console.log(error); 
-            });
+            .catch((error: AxiosError) => {
+                console.log(error);
+            })
         } catch (error) {
             console.log(error); 
         }
