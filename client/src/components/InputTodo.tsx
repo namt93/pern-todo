@@ -1,4 +1,5 @@
 import React, { Fragment, useState, ChangeEvent, FormEvent } from "react";
+import { useAddTodo } from "../hooks/useTodoMutation";
 
 interface InputTodoProps {
     initialDescription?: string;
@@ -6,6 +7,7 @@ interface InputTodoProps {
 
 const InputTodo: React.FC<InputTodoProps> = ({ initialDescription = "" }) => {
     const [description, setDescription] = useState<string>(initialDescription);
+    const addTodoMutation = useAddTodo();
 
     const updateDescription = (event: ChangeEvent<HTMLInputElement>) => {
         setDescription(event.target.value);
@@ -15,27 +17,12 @@ const InputTodo: React.FC<InputTodoProps> = ({ initialDescription = "" }) => {
         event.preventDefault();
 
         try {
-            const body = { description };
-
-            fetch("http://localhost:5000/v1.1/todos", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(body),
-                credentials: 'include',
-            })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw new Error('Network response was not ok');
-            })
-            .then(data => {
-                console.log('Post todos====', data);
-                window.location.href = "/";
-            })
-            .catch(error => {
-                console.log(error); 
-            });
+            if (description.trim()) {
+                const body = { description };
+    
+                addTodoMutation.mutate(body);
+                setDescription('');
+            }
         } catch (error) {
             console.log(error);
             
