@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axiosClient from "../../api/axiosClient";
 
 const Register: React.FC = () => {
     const [username, setUsername] = useState<string>('');
@@ -26,12 +27,8 @@ const Register: React.FC = () => {
         try {
             const body = { username, email, password };
 
-            const response = await fetch("http://localhost:5000/v1.1/auth/register", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(body)
-            });
-            if (response.ok) {
+            const response = await axiosClient.post('/v1.1/auth/register', body);
+            if (response.statusText === 'OK') {
                 navigate('/login');
             }
         } catch (error) {
