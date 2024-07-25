@@ -17,7 +17,7 @@ const InputTodo: React.FC<InputTodoProps> = ({ initialDescription = "" }) => {
         try {
             const body = { description };
 
-            fetch("http://localhost:5000/todos", {
+            fetch("http://localhost:5000/v1.1/todos", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body),

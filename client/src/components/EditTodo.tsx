@@ -10,8 +10,14 @@ type Todo = {
     user_id: number;
 }
 
+type TodoORM = {
+    id: number;
+    description: string;
+    userId: number;
+}
+
 type TodoProps = {
-    todo: Todo,
+    todo: TodoORM,
 }
 
 const EditTodo: React.FC<TodoProps> = ({ todo }) => {
@@ -23,7 +29,7 @@ const EditTodo: React.FC<TodoProps> = ({ todo }) => {
 
             const body = { description };
 
-            const response = await fetch(`http://localhost:5000/todos/${todo.todo_id}`, {
+            const response = await fetch(`http://localhost:5000/v1.1/todos/${todo.id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body),
@@ -39,26 +45,16 @@ const EditTodo: React.FC<TodoProps> = ({ todo }) => {
 
     return ( 
         <Fragment>
-            {/* <button 
-                type="button" 
-                className="" 
-                data-bs-toggle="modal" 
-                data-bs-target={`#id${todo.todo_id}`}
-                title="Edit"
-                style={{backgroundColor: "transparent", cursor: "pointer"}}
-            >
-                <FontAwesomeIcon icon={faPen} />
-            </button> */}
             <span 
             data-bs-toggle="modal"
-            data-bs-target={`#id${todo.todo_id}`}
+            data-bs-target={`#id${todo.id}`}
             title="Edit"
             style={{cursor: "pointer", color: "#0dcaf0"}}
             >
                 <FontAwesomeIcon icon={faPen} />
             </span>
 
-            <div className="modal" id={`id${todo.todo_id}`}>
+            <div className="modal" id={`id${todo.id}`}>
                 <div className="modal-dialog">
                     <div className="modal-content bg-dark">
                         <form onSubmit={updateDescription}>
